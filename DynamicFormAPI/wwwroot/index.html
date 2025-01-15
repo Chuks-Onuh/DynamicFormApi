@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form</title>
+    <script>
+        async function loadFields(accountNumber) {
+            const response = await fetch(`/api/customer-fields/${accountNumber}`);
+            if (response.ok) {
+                const data = await response.json();
+                renderForm(data);
+            } else {
+                alert("Account not found or invalid account number.");
+            }
+        }
+
+        function renderForm(data) {
+            const form = document.getElementById('dynamic-form');
+            form.innerHTML = '';
+
+            // Display the Industry
+            const industryHeader = document.createElement('h3');
+            industryHeader.textContent = `Industry: ${data.industry}`;
+            form.appendChild(industryHeader);
+
+            // Render form fields
+            data.fields.forEach(field => {
+                const label = document.createElement('label');
+                label.textContent = field.name;
+                form.appendChild(label);
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.name = field.name;
+                input.placeholder = field.name;
+                input.style.marginBottom = "10px";
+
+                form.appendChild(input);
+                form.appendChild(document.createElement('br'));
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Dynamic Form Generator</h1>
+    <input type="text" id="account-number" placeholder="Enter Account Number">
+    <button onclick="loadFields(document.getElementById('account-number').value)">Load Form</button>
+    <form id="dynamic-form"></form>
+</body>
+</html>
