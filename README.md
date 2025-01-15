@@ -6,7 +6,7 @@ A dynamic form generator that fetches customer-specific fields based on their ac
       git clone <repository-url>
       cd <project-directory>
 2. Open the Web Application:
-     Navigate to https://localhost:portnumber/index.html in your browser.
+     Navigate to https://localhost:{portnumber}/index.html in your browser.
      Enter the account number to render the dynamic form.
 
 # Example Usage
